@@ -5,6 +5,10 @@ from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from i18n import get_text
+from db import SessionLocal
+from models import User
+from sqlalchemy import select
+import asyncio
 
 load_dotenv()
 
@@ -53,6 +57,21 @@ def build_events_keyboard(user) -> InlineKeyboardMarkup:
     ])
 
 async def on_start(message: Message):
+    async def _ensure_user():
+        def _work():
+            session = SessionLocal()
+            try:
+                tg_id = message.from_user.id
+                exists = session.execute(select(User).where(User.tg_id == tg_id)).scalar_one_or_none()
+                if not exists:
+                    user = User(tg_id=tg_id)
+                    session.add(user)
+                    session.commit()
+            finally:
+                session.close()
+        return await asyncio.to_thread(_work)
+
+    await _ensure_user()
     await message.answer(get_text("welcome_full", get_user_locale(message.from_user)), reply_markup=build_main_keyboard(message.from_user))
 
 async def on_guides_disabled(call: CallbackQuery):
