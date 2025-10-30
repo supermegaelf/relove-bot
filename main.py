@@ -7,7 +7,7 @@ from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, C
 from i18n import get_text
 from db import SessionLocal
 from models import User
-from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 import asyncio
 
 load_dotenv()
@@ -62,11 +62,10 @@ async def on_start(message: Message):
             session = SessionLocal()
             try:
                 tg_id = message.from_user.id
-                exists = session.execute(select(User).where(User.tg_id == tg_id)).scalar_one_or_none()
-                if not exists:
-                    user = User(tg_id=tg_id)
-                    session.add(user)
-                    session.commit()
+                stmt = pg_insert(User).values(tg_id=tg_id)
+                stmt = stmt.on_conflict_do_nothing(index_elements=[User.tg_id])
+                session.execute(stmt)
+                session.commit()
             finally:
                 session.close()
         return await asyncio.to_thread(_work)
