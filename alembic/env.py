@@ -9,7 +9,7 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 def get_url() -> str:
-    host = os.getenv("POSTGRES_HOST", "localhost")
+    host = os.getenv("POSTGRES_HOST", "postgres")
     port = os.getenv("POSTGRES_PORT", "5432")
     db = os.getenv("POSTGRES_DB", "relove")
     user = os.getenv("POSTGRES_USER", "relove")
