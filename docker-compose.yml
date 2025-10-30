@@ -1,0 +1,44 @@
+services:
+  relove-bot:
+    image: relove-bot:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: relove-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    command: ["/bin/sh", "-c", "alembic upgrade head && python -u main.py"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - relove-net
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: relove-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-relove}
+      POSTGRES_USER: ${POSTGRES_USER:-relove}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-relove}
+    volumes:
+      - relove-pg-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - relove-net
+
+
+
+volumes:
+  relove-pg-data:
+
+networks:
+  relove-net:
