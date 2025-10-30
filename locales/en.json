@@ -27,8 +27,25 @@
   "referral_list": "List of your referrals. Feature under development.",
   "referral_rules": "Referral program rules. Feature under development.",
   "events_text": "Choose event category:",
-  "faq_text": "Question:\n\nAnswer:",
-  "referral_text": "The essence of reLove referral system\n\nWhere abundance is born through mutual support\n\n1️⃣ Your unique space\n\nYou receive a personal link - a key to creating your circle of like-minded people.\n\n2️⃣ Expanding the circle\n\nBy inviting new people through your link, you form a community of members of your circle, united by the values of reLove. By following your link, a person receives a 5% discount on services in the 'Community Events' section\n\n3️⃣ Exchange of abundance energy\n\n10% from payments for reLove products by members of your circle (first level)\n\n+5% from payments by those who were attracted by members of your circle (second level)\n\n4️⃣ Realization of gratitude\n\nAccumulated funds can be:\n\nUsed to pay up to 50% of reLove events (excluding partner services)\n\nTransferred to card (when reaching minimum amount of 5000 rubles)",
+  "faq_text": [
+    "Question:",
+    "Answer:"
+  ],
+  "referral_text": [
+    "The essence of reLove referral system",
+    "Where abundance is born through mutual support",
+    "1️⃣ Your unique space",
+    "You receive a personal link - a key to creating your circle of like-minded people.",
+    "2️⃣ Expanding the circle",
+    "By inviting new people through your link, you form a community of members of your circle, united by the values of reLove. By following your link, a person receives a 5% discount on services in the 'Community Events' section",
+    "3️⃣ Exchange of abundance energy",
+    "10% from payments for reLove products by members of your circle (first level)",
+    "+5% from payments by those who were attracted by members of your circle (second level)",
+    "4️⃣ Realization of gratitude",
+    "Accumulated funds can be:",
+    "Used to pay up to 50% of reLove events (excluding partner services)",
+    "Transferred to card (when reaching minimum amount of 5000 rubles)"
+  ],
   "practice_samhain_text": "",
   "practice_fullmoon_break_text": "",
   "practice_equality_love_text": "",
