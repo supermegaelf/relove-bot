@@ -15,7 +15,10 @@ class I18n:
                 self.locales[locale_code] = json.load(f)
     
     def get(self, key: str, locale: str = "ru") -> str:
-        return self.locales.get(locale, self.locales["ru"]).get(key, key)
+        value = self.locales.get(locale, self.locales["ru"]).get(key, key)
+        if isinstance(value, list):
+            return "\n\n".join(value)
+        return value
     
     def has_locale(self, locale: str) -> bool:
         return locale in self.locales
