@@ -1,0 +1,13 @@
+services:
+  relove-bot:
+    image: relove-bot:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: relove-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    command: ["python", "-u", "main.py"]
+
+
